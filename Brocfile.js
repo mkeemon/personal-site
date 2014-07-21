@@ -48,5 +48,12 @@ app.import('vendor/ic-ajax/dist/named-amd/main.js', {
   ]
 });
 
+var sass = require('broccoli-sass');
+var mergeTrees = require('broccoli-merge-trees');
+var sassSources = ['app/styles'];
+var appCss = sass(sassSources, 'app.scss', 'assets/app.css');
+var appAndCustomDependencies = mergeTrees([app.toTree(),appCss], {
+  overwrite: true
+});
 
-module.exports = app.toTree();
+module.exports = appAndCustomDependencies;
